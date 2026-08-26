@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>teacher</title>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            
+        }
+        .main{
+            padding: 5px;
+            
+        }
+        .mainpoto{
+            width: 100%;
+            height: auto;
+            border-radius: 20px 20px 0 0;
+        }
+
+        /*about teacher*/
+        .about-section {
+            padding: 60px 20px;
+            background-color: #ffffff;
+            color: #333333;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 32px;
+            color: #2c3e50;
+            margin-bottom: 40px;
+            font-weight: bold;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: #e74c3c;
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        /* විස්තර අඩංගු කොටස (Content Layout) */
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            justify-content: center;
+        }
+
+        /* පින්තූරය සඳහා සැකසුම් (Profile Image) */
+        .about-image {
+            flex: 1;
+            max-width: 350px;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border: 5px solid #f1f2f6;
+        }
+
+        /* ලියවිලි සඳහා සැකසුම් (Text Content) */
+        .about-text {
+            flex: 2;
+        }
+
+        .about-text p {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: #555555;
+            text-align: justify;
+        }
+
+        /* කෙටි විස්තර ලැයිස්තුව (Info List) */
+        .info-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .info-list li {
+            font-size: 18px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            background: #f8f9fa;
+            padding: 10px 15px;
+            border-left: 5px solid #3498db;
+            border-radius: 5px;
+        }
+
+        .info-list li strong {
+            margin-right: 10px;
+            color: #2c3e50;
+            min-width: 120px;
+        }
+
+        /* ජංගම දුරකථන සඳහා සැකසුම් (Mobile Responsive / Media Query) */
+        @media screen and (max-width: 768px) {
+            .about-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .about-image {
+                max-width: 250px;
+                margin: 0 auto;
+            }
+
+            .about-text p {
+                text-align: center;
+            }
+
+            .info-list li {
+                flex-direction: column;
+                text-align: center;
+                border-left: none;
+                border-top: 5px solid #3498db;
+            }
+
+            .info-list li strong {
+                margin-right: 0;
+                margin-bottom: 5px;
+            }
+        }
+
+
+        /*gallery*/
+        .gallery-section {
+            padding: 60px 20px;
+            background-color: #ffffff;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 32px;
+            color: #2c3e50;
+            margin-bottom: 40px;
+            font-weight: bold;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: #3498db; /* මෙතන පාට වෙනස් කරන්න පුළුවන් */
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        /* Slider එක සඳහා සැකසුම් (Slider Styles) */
+        .slider-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 800px; /* Slider එකේ උපරිම පළල */
+            margin: 0 auto;
+            border-radius: 15px;
+            overflow: hidden; /* කොටුවෙන් පිට පින්තූර නොපෙනී යයි */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .slider-track {
+            display: flex;
+            width: 100%;
+            transition: transform 0.8s ease-in-out; /* Slide වෙන වේගය (0.8 seconds) */
+        }
+
+        .slide {
+            min-width: 100%; /* සෑම පින්තූරයක්ම සම්පූර්ණ පළල ගනී */
+            box-sizing: border-box;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 450px; /* පින්තූරයේ උස */
+            object-fit: cover; /* පින්තූරය නොඇදී ලස්සනට කොටුවට fit වීම */
+            display: block;
+        }
+
+        /* ජංගම දුරකථන සඳහා (Mobile Responsive) */
+        @media screen and (max-width: 768px) {
+            .slide img {
+                height: 250px; /* ෆෝන් එකේදි පින්තූරයේ උස අඩුවේ */
+            }
+            .gallery-section {
+                padding: 40px 15px;
+            }
+        }
+
+
+        /*time table*/
+        .schedule-section {
+            padding: 60px 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 32px;
+            color: #2c3e50;
+            margin-bottom: 40px;
+            font-weight: bold;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: #3498db;
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        /* ශ්‍රේණි මාතෘකා */
+        .grade-title {
+            font-size: 24px;
+            color: #34495e;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #bdc3c7;
+            padding-bottom: 10px;
+        }
+
+        /* කාඩ්පත් සැකසුම් (Grid Layout) */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        /* තනි කාඩ්පතක් (Individual Card) */
+        .class-card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .class-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        /* පන්ති වර්ගය පෙන්වන ලේබලය (Tags) */
+        .class-tag {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        /* පාට වර්ග (Colors for Categories) */
+        .tag-theory { background-color: #2ecc71; } /* කොළ - Theory */
+        .tag-revision { background-color: #f39c12; } /* තැඹිලි - Revision */
+        .tag-paper { background-color: #e74c3c; } /* රතු - Paper */
+
+        /* විස්තර (Details) */
+        .class-day {
+            font-size: 22px;
+            color: #2c3e50;
+            font-weight: bold;
+            margin: 0 0 10px 0;
+        }
+
+        .class-time {
+            font-size: 16px;
+            color: #7f8c8d;
+            margin: 0 0 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .class-location {
+            font-size: 16px;
+            color: #34495e;
+            margin: 0;
+            font-weight: bold;
+        }
+
+
+        /*result*/
+        /* සාමාන්‍ය සැකසුම් */
+.results-section {
+    padding: 60px 20px;
+    background-color: #f9fbfd;
+    font-family: 'A-FMBinara', 'Abhaya Libre', sans-serif;
+}
+
+.results-description {
+    text-align: center;
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 40px;
+}
+
+/* සංඛ්‍යාත්මක දත්ත (Stats) */
+.stats-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-bottom: 50px;
+}
+
+.stat-box {
+    background-color: #3498db;
+    color: #ffffff;
+    padding: 20px 40px;
+    border-radius: 10px;
+    text-align: center;
+    min-width: 150px;
+    box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.stat-box:hover {
+    transform: translateY(-5px);
+}
+
+.stat-box h3 {
+    font-size: 36px;
+    margin: 0 0 10px 0;
+}
+
+.stat-box p {
+    font-size: 16px;
+    margin: 0;
+    font-weight: bold;
+}
+
+/* හොඳම සිසුන්ගේ කාඩ්පත් (Student Cards Grid) */
+.students-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.student-card {
+    background: #ffffff;
+    border-radius: 15px;
+    padding: 30px 20px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    border: 1px solid #eeeeee;
+    transition: all 0.3s ease;
+}
+
+.student-card:hover {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    border-color: #3498db;
+}
+
+/* සිසුන්ගේ පින්තූර */
+.student-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border: 4px solid #f0f4f8;
+}
+
+.student-name {
+    font-size: 20px;
+    color: #2c3e50;
+    margin: 0 0 5px 0;
+}
+
+.student-result {
+    font-size: 18px;
+    color: #e74c3c;
+    font-weight: bold;
+    margin: 0 0 5px 0;
+}
+
+.student-rank {
+    font-size: 15px;
+    color: #7f8c8d;
+    margin: 0;
+}
+
+/* ජංගම දුරකථන සඳහා (Mobile Responsive) */
+@media screen and (max-width: 768px) {
+    .stats-container {
+        gap: 15px;
+    }
+    
+    .stat-box {
+        width: 100%;
+        padding: 15px;
+    }
+}
+
+
+
+
+/*rsvp*/
+/* පෝරමය සඳහා සැකසුම් (Form Section Styles) */
+.rsvp-section {
+    padding: 60px 20px;
+    background-color: #f0f4f8;
+    font-family: 'A-FMBinara', 'Abhaya Libre', sans-serif;
+}
+
+.form-wrapper {
+    max-width: 600px;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.rsvp-section .section-title {
+    text-align: center;
+    font-size: 24px;
+    color: #2c3e50;
+    margin-bottom: 30px;
+    font-weight: bold;
+    line-height: 1.5;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 16px;
+    color: #34495e;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.input-group input, 
+.input-group select {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 16px;
+    border: 1px solid #ccd1d9;
+    border-radius: 8px;
+    box-sizing: border-box; /* පෝරමය එළියට පනින්නේ නැති වෙන්න */
+    transition: border-color 0.3s;
+    font-family: inherit;
+}
+
+.input-group input:focus, 
+.input-group select:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+}
+
+.submit-btn {
+    width: 100%;
+    background-color: #e74c3c;
+    color: #ffffff;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-family: inherit;
+    margin-top: 10px;
+}
+
+.submit-btn:hover {
+    background-color: #c0392b;
+}
+
+/* ජංගම දුරකථන සඳහා (Mobile Responsive) */
+@media screen and (max-width: 768px) {
+    .form-wrapper {
+        padding: 25px 20px;
+    }
+    .rsvp-section .section-title {
+        font-size: 20px;
+    }
+}
+
+
+/* Contact Section Styles */
+.contact-section {
+    padding: 60px 20px;
+    background-color: #ffffff;
+    font-family: 'A-FMBinara', 'Abhaya Libre', sans-serif;
+}
+
+.contact-box {
+    max-width: 600px;
+    margin: 0 auto;
+    background: #f8f9fa;
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    border-top: 5px solid #25D366; /* WhatsApp කොළ පාට */
+}
+
+.contact-box .section-title {
+    font-size: 26px;
+    color: #2c3e50;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.contact-description {
+    font-size: 16px;
+    color: #555555;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+/* සාමාන්‍ය විස්තර (Phone & Email) */
+.contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.contact-item {
+    font-size: 18px;
+    color: #34495e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.contact-icon {
+    font-size: 20px;
+}
+
+/* WhatsApp බොත්තම */
+.whatsapp-container {
+    margin-top: 20px;
+}
+
+.whatsapp-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: #25D366; /* Official WhatsApp Color */
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 15px 30px;
+    border-radius: 30px;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);
+}
+
+.whatsapp-btn:hover {
+    background-color: #1ebe57;
+    transform: translateY(-3px);
+}
+
+.wa-icon {
+    width: 24px;
+    height: 24px;
+}
+
+/* ජංගම දුරකථන සඳහා (Mobile Responsive) */
+@media screen and (max-width: 768px) {
+    .contact-box {
+        padding: 30px 20px;
+    }
+    
+    .contact-box .section-title {
+        font-size: 22px;
+    }
+
+    .whatsapp-btn {
+        width: 100%;
+        box-sizing: border-box;
+        font-size: 16px;
+    }
+}
+
+
+
+ /*gallery*/
+        /* Gallery Section එකේ සාමාන්‍ය හැඩය */
+.gallery-section {
+  max-width: 800px; /* ඔයාට ඕන නම් මේක වෙනස් කරගන්න පුළුවන් */
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 20px;
+}
+
+.gallery-title {
+  text-align: center;
+  font-family: sans-serif;
+  font-size: 28px;
+  color: #333333;
+  margin-bottom: 25px;
+  font-weight: bold;
+}
+
+/* Grid එක හදන විදිහ */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* තීරු 2යි */
+  grid-auto-rows: 150px; /* එක පේළියක මූලික උස */
+  gap: 12px; /* ෆොටෝ අතර පරතරය */
+}
+
+.grid-item {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px; /* ෆොටෝ එකේ මුළු රවුම් කිරීම */
+  overflow: hidden;
+}
+
+.grid-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* ෆොටෝ එක ඇදෙන්නේ නැතුව ලස්සනට fit වෙන්න */
+  display: block;
+  transition: transform 0.3s ease; /* (Optional) පොඩි zoom effect එකක් */
+}
+
+.grid-item img:hover {
+  transform: scale(1.05); /* (Optional) Mouse එක ගෙනිච්චම ලොකු වෙන්න */
+}
+
+/* ෆොටෝ 6 Grid එක ඇතුළෙ ස්ථානගත කරන විදිහ (ඔයාගේ ෆොටෝ එකේ වගේ) */
+.item-1 {
+  grid-column: 1 / 2;
+  grid-row: 1 / 3; /* පේළි 2ක් පුරාවට උසට තියෙනවා */
+}
+
+.item-2 {
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+}
+
+.item-3 {
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+}
+
+.item-4 {
+  grid-column: 1 / 2;
+  grid-row: 3 / 5; /* පේළි 2ක් පුරාවට උසට තියෙනවා */
+}
+
+.item-5 {
+  grid-column: 2 / 3;
+  grid-row: 3 / 4;
+}
+
+.item-6 {
+  grid-column: 2 / 3;
+  grid-row: 4 / 5;
+}
+
+/* Mobile ෆෝන් වලටත් ලස්සනට පේන්න Responsive කිරීම */
+@media (min-width: 768px) {
+  .gallery-grid {
+    grid-auto-rows: 200px; /* ලොකු Screen වල ෆොටෝ ටිකක් ලොකුවට පේන්න */
+    gap: 16px;
+  }
+}
+
+    </style>
+</head>
+<body>
+    <div class="main">
+        <img  class="mainpoto" src="mainpoto.jpg" alt="mainpoto">
+
+    </div>
+
+    <!-- ගුරුතුමා ගැන කොටස (About Teacher Section) -->
+    <section class="about-section" id="about">
+        <div class="container">
+            <h2 class="section-title">ගුරුතුමා ගැන</h2>
+            
+            <div class="about-content">
+                <!-- ඔයාගේ පින්තූරය මෙතනට දාන්න -->
+                <div class="about-image">
+                    <img src="about.jpg" alt="සිංහල ගුරුතුමාගේ ඡායාරූපය">
+                </div>
+
+                <!-- විස්තර ටික -->
+                <div class="about-text">
+                    <p>
+                        ආදරණීය දුවේ පුතේ! මම අ.පො.ස. උසස් පෙළ දරුවන් වෙනුවෙන් ICT විෂය ඉගැන්වීම් කටයුතු සිදුකරන ගුරුවරයෙක්මි. වසර 5 කට අධික කාලයක් පුරාවට දරුවන්ගේ අධ්‍යාපන ගමන සාර්ථක කර ගැනීම සඳහා මගපෙන්වීමට ලැබීම මම ලොකු සතුටක් සේ සලකමි. ICT විෂය ඉතා සරලව, ආකර්ෂණීයව සහ විභාගයට ඉහළම ලකුණු ලබාගත හැකි අයුරින් ඉගැන්වීම මගේ අරමුණයි.
+                    </p>
+                    
+                    <ul class="info-list">
+                        <li>
+                            <strong>උගන්වන විෂය:</strong> අ.පො.ස. (උසස් පෙළ) ICT 
+                        </li>
+                        <li>
+                            <strong>අධ්‍යාපනය:</strong> වයඹ විශ්වවිද්‍යාලය
+                        </li>
+                        <li>
+                            <strong>පළපුරුද්ද:</strong> වසර 5 කට වැඩි කාලයක්
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ගැලරිය කොටස (Gallery Section) -->
+    <section class="gallery-section">
+        <div class="container">
+            <h2 class="section-title">අපේ අධ්‍යාපන ආයතනය</h2>
+            
+            <div class="slider-wrapper">
+                <div class="slider-track" id="sliderTrack">
+                    <!-- පින්තූර 4 මෙතනට දාන්න -->
+                    <div class="slide">
+                        <img src="1.jpg" alt="ආයතනයේ ඡායාරූපය 1">
+                    </div>
+                    <div class="slide">
+                        <img src="2.jpg" alt="ආයතනයේ ඡායාරූපය 2">
+                    </div>
+                    <div class="slide">
+                        <img src="3.jpg" alt="ආයතනයේ ඡායාරූපය 3">
+                    </div>
+                    <div class="slide">
+                        <img src="4.jpg" alt="ආයතනයේ ඡායාරූපය 4">
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+
+    <section class="schedule-section">
+        <div class="container">
+            <h2 class="section-title">උසස් පෙළ ICT පන්ති කාලසටහන</h2>
+
+            <!-- 12 ශ්‍රේණිය සඳහා කොටස -->
+            <h3 class="grade-title">කුරුණෑගල - සිප්වින් (2028)</h3>
+            <div class="cards-grid">
+                
+                <!-- 12 ශ්‍රේණිය සිද්ධාන්ත පන්තිය -->
+                <div class="class-card">
+                    <span class="class-tag tag-theory">සිද්ධාන්ත (Theory)</span>
+                    <h4 class="class-day">සෙනසුරාදා</h4>
+                    <p class="class-time">🕒 පෙ.ව. 10.15 - දහවල් 12.30</p>
+                   
+                </div>
+
+            </div>
+
+            <h3 class="grade-title"> මහනුවර - IMS (2028)</h3>
+            <div class="cards-grid">
+                
+                <!-- 12 ශ්‍රේණිය සිද්ධාන්ත පන්තිය -->
+                <div class="class-card">
+                    <span class="class-tag tag-theory">සිද්ධාන්ත (Theory)</span>
+                    <h4 class="class-day">සිකුරාදා</h4>
+                    <p class="class-time">🕒 ප.ව. 3.00 - ප.ව. 5.15</p>
+                   
+                </div>
+            </div>
+
+             <h3 class="grade-title"> සක්යා නුගේගොඩ (2028)</h3>
+            <div class="cards-grid">
+                
+                <!-- 12 ශ්‍රේණිය සිද්ධාන්ත පන්තිය -->
+                <div class="class-card">
+                    <span class="class-tag tag-theory">සිද්ධාන්ත (Theory)</span>
+                    <h4 class="class-day">ඉරිදා</h4>
+                    <p class="class-time">🕒 පෙ.ව. 10.15 - දහවල් 12.30</p>
+                   
+                </div>
+            </div>
+
+             <h3 class="grade-title"> නැණික් ගම්පහ (2028)</h3>
+            <div class="cards-grid">
+                
+                <!-- 12 ශ්‍රේණිය සිද්ධාන්ත පන්තිය -->
+                <div class="class-card">
+                    <span class="class-tag tag-theory">සිද්ධාන්ත (Theory)</span>
+                    <h4 class="class-day">අගහරුවාදා</h4>
+                    <p class="class-time">🕒 ප.ව. 3.00 - ප.ව. 5.15</p>
+                   
+                </div>
+            </div>
+
+            <!-- 13 ශ්‍රේණිය සඳහා කොටස -->
+            <h3 class="grade-title">All Island with Zoom </h3>
+            <div class="cards-grid">
+                
+               
+
+                <!-- 13 ශ්‍රේණිය පුනරීක්ෂණ පන්තිය -->
+                <div class="class-card">
+                    <span class="class-tag tag-revision">Class - online</span>
+                    <h4 class="class-day">අගහරුවාදා</h4>
+                    <p class="class-time">🕒 ප.ව. 7.00 - ප.ව. 9.00</p>
+                    <p class="class-location">📍 මාර්ගගතව (Online / Zoom)</p>
+                </div>           
+
+            </div>
+
+        </div>
+    </section>
+
+
+     <!--gallery section-->
+    <section class="gallery-section" style="margin: 0;"> <br>
+  <h2 class="gallery-title" style="color: #04042b;">Teaching Memories </h2>
+  
+  <div class="gallery-grid">
+    <div class="grid-item item-1">
+      <img src="10.jpg" alt="Gallery Image 1">
+    </div>
+    
+    <div class="grid-item item-2">
+      <img src="8.jpg" alt="Gallery Image 2">
+    </div>
+    
+    <div class="grid-item item-3">
+      <img src="9.jpg" alt="Gallery Image 3">
+    </div>
+    
+    <div class="grid-item item-4">
+      <img src="5.jpg" alt="Gallery Image 4">
+    </div>
+    
+    <div class="grid-item item-5">
+      <img src="6.jpg" alt="Gallery Image 5">
+    </div>
+    
+    <div class="grid-item item-6">
+      <img src="7.jpg" alt="Gallery Image 6">
+    </div>
+  </div>
+</section>
+
+
+
+
+
+<!-- සම්බන්ධ කරගැනීමේ කොටස (Contact Section) -->
+<section class="contact-section" id="contact">
+    <div class="container">
+        <div class="contact-box">
+            <h2 class="section-title">ගුරුතුමා සම්බන්ධ කරගන්න</h2>
+            <p class="contact-description">පන්ති පිළිබඳ වැඩිදුර විස්තර දැනගැනීමට පහත දුරකථන අංකයට අමතන්න හෝ WhatsApp හරහා පණිවිඩයක් එවන්න.</p>
+
+            <!-- සාමාන්‍ය විස්තර -->
+            <div class="contact-details">
+                <div class="contact-item">
+                    <span class="contact-icon">📞</span>
+                    <p><strong>දුරකථන:</strong> 071 455 5513</p>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon">🔗</span>
+                    <p><strong>website: </strong>ictfromabc.com</p>
+                </div>
+            </div>
+
+            <!-- WhatsApp බොත්තම -->
+            <div class="whatsapp-container">
+                <!-- 947XXXXXXXX වෙනුවට ඔයාගේ නම්බර් එක දාන්න (බිංදුව නැතුව 94 න් පටන්ගන්න) -->
+                <a href="https://wa.me/94714555513" target="_blank" class="whatsapp-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="wa-icon" viewBox="0 0 16 16">
+                        <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
+                    </svg>
+                    WhatsApp හරහා සම්බන්ධ වන්න
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+    <script>
+        const sliderTrack = document.getElementById('sliderTrack');
+        const slides = document.querySelectorAll('.slide');
+        let currentIndex = 0;
+        const totalSlides = slides.length; // පින්තූර ගණන (මෙතන 4යි)
+
+        function moveToNextSlide() {
+            currentIndex++;
+            
+            // පින්තූර 4ම ඉවර උනාම ආයෙත් මුලට යන්න
+            if (currentIndex >= totalSlides) {
+                currentIndex = 0;
+            }
+            
+            // දකුණේ ඉඳන් වමට ගෙන යාම (translateX භාවිතා කර)
+            const slideWidth = slides[0].clientWidth;
+            sliderTrack.style.transform = `translateX(-${currentIndex * 100}%)`;
+        }
+
+        // තත්පර 3කට වරක් පින්තූරය මාරු වීම (3000ms = 3 seconds)
+        setInterval(moveToNextSlide, 3000); 
+
+
+
+
+        // ඉලක්කම් (Counters) ටික අල්ලගැනීම
+    const counters = document.querySelectorAll('.counter');
+    const speed = 100; // ඉලක්කම් වැඩිවෙන වේගය (අගය අඩු කරන තරමට වේගය වැඩියි)
+
+    // ඉලක්කම් වැඩි කරන ෆන්ක්ෂන් එක
+    const animateCounters = () => {
+        counters.forEach(counter => {
+            const updateCount = () => {
+                const target = +counter.getAttribute('data-target'); // යා යුතු අගය (උදා: 500)
+                const count = +counter.innerText; // දැනට තියෙන අගය
+
+                // එක පාරකට වැඩි වෙන ප්‍රමාණය
+                const inc = target / speed;
+
+                if (count < target) {
+                    // ඉලක්කම වැඩි කිරීම
+                    counter.innerText = Math.ceil(count + inc);
+                    // මිලි තත්පර 15කින් නැවත ෆන්ක්ෂන් එක වැඩ කිරීම
+                    setTimeout(updateCount, 15);
+                } else {
+                    counter.innerText = target; // අවසානයේ නියමිත අගයම පිහිටුවීම
+                }
+            };
+            updateCount();
+        });
+    }
+
+    // Scroll කරගෙන එනකොට අදාළ කොටස පෙනෙනවද කියා බැලීම (Intersection Observer)
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateCounters(); // කොටස පෙනෙනවා නම් ඉලක්කම් වැඩිකිරීම පටන් ගන්න
+                observer.unobserve(entry.target); // එක පාරක් වුණාට පස්සේ නවත්තන්න
+            }
+        });
+    }, {
+        threshold: 0.5 // 50% ක් පෙනෙනකොට වැඩ පටන්ගන්න
+    });
+
+    const statsSection = document.getElementById('stats-section');
+    if (statsSection) {
+        observer.observe(statsSection);
+    }
+
+
+
+    //rsvp
+    <!-- EmailJS Library -->
+
+
+
+    // EmailJS Initialize කිරීම
+    (function() {
+        // "YOUR_PUBLIC_KEY" වෙනුවට ඔයාගේ EmailJS Public Key එක දාන්න
+        emailjs.init("YOUR_PUBLIC_KEY"); 
+    })();
+
+    // පෝරමය Submit කරන විට සිදුවිය යුතු දේ
+    document.getElementById('rsvp-form').addEventListener('submit', function(event) {
+        event.preventDefault(); // පිටුව Refresh වීම නැවැත්වීම
+        
+        const btn = document.getElementById('submit-btn');
+        btn.innerText = 'යවමින් පවතී... (Sending...)'; // බොත්තමේ නම මාරු කිරීම
+
+        // "YOUR_SERVICE_ID" සහ "YOUR_TEMPLATE_ID" වෙනස් කරන්න
+        emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', this)
+            .then(function() {
+                alert('සාර්ථකව යවන ලදි! අපි ඉක්මනින්ම ඔබව සම්බන්ධ කරගන්නෙමු.');
+                btn.innerText = 'ලියාපදිංචි වන්න (Submit)';
+                document.getElementById('rsvp-form').reset(); // පෝරමය හිස් කිරීම
+            }, function(error) {
+                alert('යැවීමේදී දෝෂයක් ඇතිවිය. කරුණාකර නැවත උත්සාහ කරන්න.');
+                btn.innerText = 'ලියාපදිංචි වන්න (Submit)';
+                console.log('FAILED...', error);
+            });
+    });
+
+
+
+    </script>
+</body>
+</html>
